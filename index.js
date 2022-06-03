@@ -5,7 +5,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 const app = express();
-const PORT=4000;
+const PORT=process.env.PORT;
 const movies = [
   {
     id: "100",
@@ -117,5 +117,22 @@ app.get("/movies",async function (request, response) {
     const result=await client.db("b33wd").collection("movies").insertMany(data);
     response.send(result);
   });
+
+  app.put("/movies/:id", async function (request, response) {
+    const data=request.body;
+    console.log(data);
+    const {id}=request.params;
+    //db.movies.updateOne(data)
+    const result=await client.db("b33wd").collection("movies").updateOne({id:id},{$set: data});
+    response.send(result);
+  });
+
+  app.delete("/movies/:id",async function (request, response) {
+    console.log(request.params);
+    const {id}=request.params;
+    const movie=await client.db("b33wd").collection("movies").deleteOne({id: id});
+  
+    movie.deletedCount>0 ? response.send(movie): response.status(404).send({msg: "no such movie is there"});
+});
 
 app.listen(PORT, ()=> console.log(`App is started in ${PORT}`));
