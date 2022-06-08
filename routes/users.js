@@ -20,12 +20,17 @@ async function genHashedPassword(password){
 
     // Task -> if User exist -> user already exists
     // allow user to be created
-
-    //   const result=await createUser({
-    //       username: username,
-    //       password: hashedPassword,
-    //   });
-      response.send(isUserExist);
+        if (isUserExist){
+            response.status("400").send({msg : "username already exists try different username"});
+        }
+        else{
+            const result=await createUser({
+                username: username,
+                password: hashedPassword,
+            });
+            response.send(result);
+        }
+      
   });
 
   export const userRouter= router;

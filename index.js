@@ -4,6 +4,7 @@ import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import {moviesRouter} from "./routes/movies.js"
 import  bcrypt from "bcrypt";   
+import { userRouter } from "./routes/users.js";
 dotenv.config();
 const app = express();
 const PORT=process.env.PORT;
@@ -29,5 +30,5 @@ app.get("/", function (request, response) {
 });
 
 app.use("/movies", moviesRouter);
-
+app.use("/users", userRouter);
 app.listen(PORT, ()=> console.log(`App is started in ${PORT}`));
