@@ -2,11 +2,11 @@ import express from "express";
 import { getAllMovies, getMoviesById, postMovies, updateMoviesById, deleteMoviesById } from "./helper.js";
 const router=express.Router();
 
-router.get("/movies",async function (request, response) {
+router.get("/",async function (request, response) {
     const movies= await getAllMovies();
       response.send(movies);
     });
-    router.get("/movies/:id",async function (request, response) {
+    router.get("/:id",async function (request, response) {
         console.log(request.params);
         const {id}=request.params;
         const movie= await getMoviesById(id);
@@ -17,7 +17,7 @@ router.get("/movies",async function (request, response) {
     // express.json()-> converting to JSON
     // Inbuilt middleware
     
-    router.post("/movies", async function (request, response) {
+    router.post("/", async function (request, response) {
       const data=request.body;
       console.log(data);
       //db.movies.insertMany(data)
@@ -25,7 +25,7 @@ router.get("/movies",async function (request, response) {
       response.send(result);
     });
   
-    router.put("/movies/:id", async function (request, response) {
+    router.put("/:id", async function (request, response) {
       const data=request.body;
       console.log(data);
       const {id}=request.params;
@@ -34,7 +34,7 @@ router.get("/movies",async function (request, response) {
       response.send(result);
     });
   
-    router.delete("/movies/:id",async function (request, response) {
+    router.delete("/:id",async function (request, response) {
       console.log(request.params);
       const {id}=request.params;
       const movie=await deleteMoviesById(id);

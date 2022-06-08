@@ -3,7 +3,7 @@ import express from "express";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import {moviesRouter} from "./routes/movies.js"
-      
+import  bcrypt from "bcrypt";   
 dotenv.config();
 const app = express();
 const PORT=process.env.PORT;

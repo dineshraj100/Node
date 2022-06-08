@@ -15,3 +15,12 @@ export async function getMoviesById(id) {
 export async function getAllMovies() {
     return await client.db("b33wd").collection("movies").find({}).toArray();
 }
+
+export async function createUser(data){
+    return await client.db("b33wd").collection("users").insertOne(data);
+}
+
+export async function getUserByName(username){
+    const user= await client.db("b33wd").collection("users").findOne({ username:username});
+    return user;
+}
